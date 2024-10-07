@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FiCopy, FiDownload, FiCheckCircle, FiSun, FiMoon, FiEye, FiEyeOff } from 'react-icons/fi';
-import { FaServer, FaUserAlt, FaLock, FaFolderOpen, FaFileAlt, FaKey } from 'react-icons/fa';
+import { FaServer, FaUserAlt, FaFolderOpen, FaFileAlt, FaKey } from 'react-icons/fa';
 import { MdOutlineCloudUpload } from 'react-icons/md';
 import Prism from 'prismjs';
 import 'prismjs/themes/prism-tomorrow.css';
@@ -13,10 +13,10 @@ const SFTPForm = () => {
     host: 'localhost',
     protocol: 'sftp',
     port: 22,
-    username: 'username',
+    username: '',
     password: '',
     remotePath: '/',
-    uploadOnSave: false,
+    uploadOnSave: true,
     useTempFile: false,
     openSsh: false,
   });
