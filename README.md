@@ -1,70 +1,109 @@
-# Getting Started with Create React App
+# SFTP Config Generator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern and intuitive React application that allows users to easily generate `sftp.json` configuration files. With a clean UI/UX design, light/dark mode, multi-step form, and export options, this app simplifies creating SFTP configurations for VSCode and other tools.
 
-## Available Scripts
+![SFTP Config Generator Preview](preview.png)
 
-In the project directory, you can run:
+## ✨ Features
 
-### `npm start`
+- **Form Wizard:** Step-by-step multi-stage form for entering server settings, user credentials, and options.
+- **Light/Dark Mode:** Beautiful light and dark themes with a toggle button to switch between them.
+- **Intuitive UI/UX:** Modern, clean, and responsive layout with validation and helpful tooltips.
+- **Show/Hide Password:** Easily toggle password visibility during entry.
+- **Code-like JSON Output:** JSON output formatted with syntax highlighting and line numbers, designed to look like a code editor.
+- **Download and Copy Options:** Save the generated JSON file or copy it to the clipboard directly.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🚀 Getting Started
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Prerequisites
 
-### `npm test`
+Make sure you have Node.js and npm installed on your machine.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
 
-### `npm run build`
+### Installation
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Clone the repository**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   ```bash
+   git clone https://github.com/yourusername/sftp-config-generator.git
+   cd sftp-config-generator
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. **Install dependencies**
 
-### `npm run eject`
+   ```bash
+   npm install
+   ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3. **Run the application**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+   ```bash
+   npm start
+   ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+   The app should now be running at `http://localhost:3000`.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Building for Production
 
-## Learn More
+To create an optimized production build:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+npm run build
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🛠 Usage
 
-### Code Splitting
+1. Launch the app and enter the necessary server settings, user credentials, and configuration options.
+2. Use the **Generate SFTP JSON** button to create the configuration.
+3. View the generated JSON output, which can be downloaded or copied to the clipboard.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📸 Screenshots
 
-### Analyzing the Bundle Size
+| Light Mode                               | Dark Mode                              |
+| ---------------------------------------- | -------------------------------------- |
+| ![Light Mode Screenshot](light-mode.png) | ![Dark Mode Screenshot](dark-mode.png) |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 💡 Features to Add
 
-### Making a Progressive Web App
+- **User Authentication**: Ability to save and retrieve multiple configurations with user accounts.
+- **Cloud Sync**: Option to sync generated configurations with cloud storage.
+- **More Export Formats**: Support for other formats like YAML, XML.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📚 Technologies Used
 
-### Advanced Configuration
+- **React**: Frontend framework for building the UI.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **React Icons**: Beautiful icons used for intuitive UI.
+- **Prism.js**: Syntax highlighting for JSON output.
+- **React Toastify**: Toast notifications for user feedback.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🌟 Contributing
 
-### Deployment
+Contributions are welcome! Please follow these steps to contribute:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature-name`).
+3. Commit your changes (`git commit -m 'Add some feature'`).
+4. Push to the branch (`git push origin feature-name`).
+5. Create a pull request.
 
-### `npm run build` fails to minify
+## 📄 License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Special thanks to the open-source community for providing tools like React, Tailwind CSS, and Prism.js.
+
+## 📧 Contact
+
+For any questions or suggestions, feel free to reach out:
+
+- **Email**: [youremail@example.com](mailto:youremail@example.com)
+- **GitHub**: [yourusername](https://github.com/yourusername)
+
+---
+
+Thank you for checking out **SFTP Config Generator**! If you find this useful, please star the repository 🌟 and share it with others!
