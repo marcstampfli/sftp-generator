@@ -1,17 +1,32 @@
 # SFTP Config Generator
 
-A modern and intuitive React application that allows users to easily generate `sftp.json` configuration files. With a clean UI/UX design, light/dark mode, multi-step form, and export options, this app simplifies creating SFTP configurations for VSCode and other tools.
+A modern and intuitive React application that allows users to easily generate `sftp.json` configuration files. With a clean UI/UX design, light/dark mode, multi-step form, and export options, this app simplifies creating SFTP configurations for VSCode and other tools. Users can create, save, and manage multiple server profiles, making it an efficient solution for managing SFTP configurations across different environments.
 
 ![SFTP Config Generator Preview](preview.png)
 
 ## ✨ Features
 
-- **Form Wizard:** Step-by-step multi-stage form for entering server settings, user credentials, and options.
-- **Light/Dark Mode:** Beautiful light and dark themes with a toggle button to switch between them.
-- **Intuitive UI/UX:** Modern, clean, and responsive layout with validation and helpful tooltips.
-- **Show/Hide Password:** Easily toggle password visibility during entry.
-- **Code-like JSON Output:** JSON output formatted with syntax highlighting and line numbers, designed to look like a code editor.
-- **Download and Copy Options:** Save the generated JSON file or copy it to the clipboard directly.
+### Completed Features
+- **Form Wizard**: Step-by-step multi-stage form for entering server settings, user credentials, and options.
+- **Real-Time Validation**: Inline field validation ensures correct input data.
+- **Light/Dark Mode**: Beautiful light and dark themes with user preference saved in local storage.
+- **Show/Hide Password**: Easily toggle password visibility during entry.
+- **Generated JSON Output**: JSON output formatted with syntax highlighting and line numbers, designed to look like a code editor.
+- **Download and Copy Options**: Save the generated JSON file as `sftp.json` or copy it to the clipboard directly.
+- **Profile Management**: Create, save, and load multiple SFTP profiles to manage different server configurations.
+- **Responsive UI/UX**: Modern, clean, and optimized layout for both large and small screens, with validation and helpful tooltips.
+- **Tooltips for Input Fields**: Guidance for users on input fields to make the form more intuitive.
+- **Accessibility Improvements**: ARIA labels and full keyboard navigation for an accessible user experience.
+
+### Upcoming Features
+- **Synchronization Options**: Support for sync commands (upload, download, mirror) as per SFTP plugin capabilities.
+- **Multi-Workspace Support**: Manage configurations for multiple projects or workspaces from a single interface.
+- **Advanced Connection Settings**: Add options like `privateKeyPath`, `passphrase`, `keepaliveInterval`, and `keepaliveCountMax`.
+- **Connection Testing**: Test SFTP connection settings directly from the form.
+- **Profile Import/Export**: Allow users to import/export server profiles in bulk.
+- **User Authentication**: Ability to save and retrieve multiple configurations with user accounts.
+- **Cloud Sync**: Option to sync generated configurations with cloud storage.
+- **More Export Formats**: Support for other formats like YAML and XML.
 
 ## 🚀 Getting Started
 
@@ -27,7 +42,7 @@ Make sure you have Node.js and npm installed on your machine.
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/sftp-config-generator.git
+   git clone https://github.com/marcstampfli/sftp-config-generator.git
    cd sftp-config-generator
    ```
 
@@ -58,18 +73,13 @@ npm run build
 1. Launch the app and enter the necessary server settings, user credentials, and configuration options.
 2. Use the **Generate SFTP JSON** button to create the configuration.
 3. View the generated JSON output, which can be downloaded or copied to the clipboard.
+4. Save your profile for future use.
 
 ## 📸 Screenshots
 
 | Light Mode                               | Dark Mode                              |
 | ---------------------------------------- | -------------------------------------- |
 | ![Light Mode Screenshot](light-mode.png) | ![Dark Mode Screenshot](dark-mode.png) |
-
-## 💡 Features to Add
-
-- **User Authentication**: Ability to save and retrieve multiple configurations with user accounts.
-- **Cloud Sync**: Option to sync generated configurations with cloud storage.
-- **More Export Formats**: Support for other formats like YAML, XML.
 
 ## 📚 Technologies Used
 
