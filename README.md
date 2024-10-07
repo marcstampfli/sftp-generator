@@ -101,8 +101,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or suggestions, feel free to reach out:
 
-- **Email**: [youremail@example.com](mailto:youremail@example.com)
-- **GitHub**: [yourusername](https://github.com/yourusername)
+- **Email**: [marcstampfli@gmail.com](mailto:marcstampfli@gmail.com)
+- **GitHub**: [marcstampfli](https://github.com/marcstampfli)
 
 ---
 
