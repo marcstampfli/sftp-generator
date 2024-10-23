@@ -50,8 +50,12 @@ const SFTPForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const sftpConfig = JSON.stringify(formData, null, 2);
-    setGeneratedJSON(sftpConfig);
+    const sftpConfig = {
+      ...formData,
+      port: Number(formData.port),
+    };
+    const jsonString = JSON.stringify(sftpConfig, null, 2);
+    setGeneratedJSON(jsonString);
     toast.success('JSON successfully generated!', { icon: <FiCheckCircle /> });
     setTimeout(() => {
       generatedContentRef.current?.scrollIntoView({ behavior: 'smooth' });
