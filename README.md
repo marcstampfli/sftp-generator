@@ -2,7 +2,7 @@
 
 A modern and intuitive React application that allows users to easily generate `sftp.json` configuration files. With a clean UI/UX design, light/dark mode, multi-step form, and export options, this app simplifies creating SFTP configurations for VSCode and other tools. Users can create, save, and manage multiple server profiles, making it an efficient solution for managing SFTP configurations across different environments.
 
-![SFTP Config Generator Preview](preview.png)
+![SFTP Config Generator Preview](https://github.com/marcstampfli/sftp-generator/blob/master/public/preview.png)
 
 ## ✨ Features
 
@@ -79,7 +79,7 @@ npm run build
 
 | Light Mode                               | Dark Mode                              |
 | ---------------------------------------- | -------------------------------------- |
-| ![Light Mode Screenshot](light-mode.png) | ![Dark Mode Screenshot](dark-mode.png) |
+| ![Light Mode Screenshot](https://github.com/marcstampfli/sftp-generator/blob/master/public/light-mode.png) | ![Dark Mode Screenshot](https://github.com/marcstampfli/sftp-generator/blob/master/public/dark-mode.png) |
 
 ## 📚 Technologies Used
 
