@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FormData } from '../../types/forms';
 import { FaTrash, FaFolder } from 'react-icons/fa';
-import { toast } from 'react-toastify';
 
 interface ProfileManagerProps {
   darkMode: boolean;
