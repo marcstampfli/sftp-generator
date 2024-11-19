@@ -25,6 +25,7 @@ export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) 
     name: '',
     host: '',
     port: 22,
+    protocol: 'sftp',
     username: '',
     authType: 'password',
     remotePath: '/',

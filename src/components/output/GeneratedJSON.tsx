@@ -19,14 +19,14 @@ export const GeneratedJSON: React.FC<StepProps> = ({
       name: data.name,
       host: data.host,
       port: data.port || 22,
+      protocol: data.protocol || 'sftp',
       username: data.username,
       remotePath: data.remotePath || '/',
       uploadOnSave: data.uploadOnSave || false,
     };
 
-    // Add protocol and secure if using FTP
+    // Add secure option if using FTP
     if (data.protocol === 'ftp') {
-      config.protocol = 'ftp';
       config.secure = data.secure || false;
     }
 
