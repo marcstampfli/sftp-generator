@@ -1,8 +1,8 @@
-import { Dispatch, SetStateAction } from 'react';
-import { FormData } from './forms';
+import { Dispatch, SetStateAction } from "react";
+import { SFTPFormData } from "./forms";
 
 export interface ProfileManagerProps {
-  profiles: FormData[];
+  profiles: SFTPFormData[];
   darkMode: boolean;
   onProfileSelect: (profile: FormData) => void;
   onProfileDelete: (index: number) => void;

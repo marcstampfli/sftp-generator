@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ProgressBarProps {
   currentStep: number;
@@ -24,11 +24,11 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
             className={`text-sm font-medium ${
               index + 1 <= currentStep
                 ? darkMode
-                  ? 'text-blue-400'
-                  : 'text-blue-600'
+                  ? "text-blue-400"
+                  : "text-blue-600"
                 : darkMode
-                ? 'text-gray-500'
-                : 'text-gray-400'
+                  ? "text-gray-500"
+                  : "text-gray-400"
             }`}
           >
             {title}
@@ -37,17 +37,16 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
       </div>
       <div
         className={`h-2 rounded-full ${
-          darkMode ? 'bg-gray-700' : 'bg-gray-200'
+          darkMode ? "bg-gray-700" : "bg-gray-200"
         }`}
       >
         <div
           className={`h-2 rounded-full transition-all duration-300 ${
-            darkMode ? 'bg-blue-400' : 'bg-blue-600'
+            darkMode ? "bg-blue-400" : "bg-blue-600"
           }`}
           style={{ width: `${progress}%` }}
         />
       </div>
-      
     </div>
   );
 };

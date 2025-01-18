@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface CheckboxProps {
   id: string;
@@ -35,21 +35,21 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             cursor-pointer
             ${
               checked
-                ? 'bg-green-500 border-green-500'
-                : `border-gray-300 ${darkMode ? 'bg-gray-700' : 'bg-white'}`
+                ? "bg-green-500 border-green-500"
+                : `border-gray-300 ${darkMode ? "bg-gray-700" : "bg-white"}`
             }
             ${
               disabled
-                ? 'opacity-50 cursor-not-allowed'
-                : 'hover:border-green-500'
+                ? "opacity-50 cursor-not-allowed"
+                : "hover:border-green-500"
             }
-            ${darkMode ? 'focus:ring-green-400' : 'focus:ring-green-500'}
+            ${darkMode ? "focus:ring-green-400" : "focus:ring-green-500"}
           `}
         />
         {checked && (
           <svg
             className="absolute w-3 h-3 text-white pointer-events-none"
-            style={{ left: '2px', top: '2px' }}
+            style={{ left: "2px", top: "2px" }}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -67,8 +67,8 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       <label
         htmlFor={id}
         className={`ml-2 text-sm font-medium ${
-          darkMode ? 'text-gray-200' : 'text-gray-700'
-        } ${disabled ? 'opacity-50' : ''}`}
+          darkMode ? "text-gray-200" : "text-gray-700"
+        } ${disabled ? "opacity-50" : ""}`}
       >
         {label}
       </label>

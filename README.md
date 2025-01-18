@@ -55,11 +55,13 @@ npm run build
 ## 🛠 Usage
 
 1. **Create a New Configuration:**
+
    - Fill out the multi-step form with your SFTP server details
    - Choose between password or key-based authentication
    - Configure additional options like path mappings
 
 2. **Save and Manage Profiles:**
+
    - Save your configurations as profiles for quick access
    - Load existing profiles to modify settings
    - Delete profiles you no longer need
@@ -89,6 +91,7 @@ sftp-generator/
 ## 💻 Technologies
 
 - **Frontend:**
+
   - React 18
   - TypeScript
   - Tailwind CSS

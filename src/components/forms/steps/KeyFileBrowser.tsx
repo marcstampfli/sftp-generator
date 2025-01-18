@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { FaFolder, FaKey, FaTrash } from 'react-icons/fa';
-import { toast } from 'react-toastify';
+import React, { useRef, useState } from "react";
+import { FaFolder, FaKey, FaTrash } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 interface KeyFileBrowserProps {
   darkMode?: boolean;
@@ -10,7 +10,7 @@ interface KeyFileBrowserProps {
 
 export const KeyFileBrowser: React.FC<KeyFileBrowserProps> = ({
   darkMode = false,
-  value = '',
+  value = "",
   onChange,
 }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -23,13 +23,15 @@ export const KeyFileBrowser: React.FC<KeyFileBrowserProps> = ({
       const content = e.target?.result as string;
       if (isValidSSHKey(content)) {
         onChange(file.name);
-        toast.success('SSH key file selected successfully');
+        toast.success("SSH key file selected successfully");
       } else {
-        toast.error('Invalid SSH key file. Please select a valid private key file.');
+        toast.error(
+          "Invalid SSH key file. Please select a valid private key file.",
+        );
       }
     };
     reader.onerror = () => {
-      toast.error('Error reading the key file. Please try again.');
+      toast.error("Error reading the key file. Please try again.");
     };
     reader.readAsText(file);
   };
@@ -38,10 +40,12 @@ export const KeyFileBrowser: React.FC<KeyFileBrowserProps> = ({
     // Basic validation for SSH private key format
     const opensshPattern = /^-----BEGIN (.+ )?PRIVATE KEY-----/;
     const puttyPattern = /^PuTTY-User-Key-File-/;
-    
+
     // Trim whitespace and check for common key formats
     const trimmedContent = content.trim();
-    return opensshPattern.test(trimmedContent) || puttyPattern.test(trimmedContent);
+    return (
+      opensshPattern.test(trimmedContent) || puttyPattern.test(trimmedContent)
+    );
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -77,7 +81,7 @@ export const KeyFileBrowser: React.FC<KeyFileBrowserProps> = ({
 
   const handleRemove = (e: React.MouseEvent) => {
     e.stopPropagation();
-    onChange('');
+    onChange("");
   };
 
   return (
@@ -103,29 +107,30 @@ export const KeyFileBrowser: React.FC<KeyFileBrowserProps> = ({
             transition-colors duration-200
             ${
               darkMode
-                ? 'border-gray-600 hover:border-gray-500'
-                : 'border-gray-300 hover:border-gray-400'
+                ? "border-gray-600 hover:border-gray-500"
+                : "border-gray-300 hover:border-gray-400"
             }
-            ${isDragging ? 'border-blue-500 bg-blue-50' : ''}
+            ${isDragging ? "border-blue-500 bg-blue-50" : ""}
           `}
         >
           <FaFolder
             className={`text-4xl ${
-              darkMode ? 'text-gray-400' : 'text-gray-500'
+              darkMode ? "text-gray-400" : "text-gray-500"
             }`}
           />
           <div
             className={`text-sm ${
-              darkMode ? 'text-gray-300' : 'text-gray-600'
+              darkMode ? "text-gray-300" : "text-gray-600"
             }`}
           >
-            <span className="font-medium">Click to browse</span> or drag and drop
+            <span className="font-medium">Click to browse</span> or drag and
+            drop
             <br />
             your SSH private key file here
           </div>
           <div
             className={`text-xs ${
-              darkMode ? 'text-gray-400' : 'text-gray-500'
+              darkMode ? "text-gray-400" : "text-gray-500"
             }`}
           >
             Supports OpenSSH and PuTTY key formats
@@ -138,8 +143,8 @@ export const KeyFileBrowser: React.FC<KeyFileBrowserProps> = ({
             p-4 rounded-lg
             ${
               darkMode
-                ? 'bg-gray-700 text-gray-200'
-                : 'bg-gray-100 text-gray-700'
+                ? "bg-gray-700 text-gray-200"
+                : "bg-gray-100 text-gray-700"
             }
           `}
         >
@@ -156,8 +161,8 @@ export const KeyFileBrowser: React.FC<KeyFileBrowserProps> = ({
               transition-colors duration-200
               ${
                 darkMode
-                  ? 'hover:bg-gray-600 text-gray-400 hover:text-gray-200'
-                  : 'hover:bg-gray-200 text-gray-500 hover:text-gray-700'
+                  ? "hover:bg-gray-600 text-gray-400 hover:text-gray-200"
+                  : "hover:bg-gray-200 text-gray-500 hover:text-gray-700"
               }
             `}
             title="Remove key"

@@ -1,82 +1,71 @@
-import React, { useState } from 'react';
-import { FormData } from '../../types/forms';
-import { FaTrash, FaFolder } from 'react-icons/fa';
+import React from "react";
+import { Profile, SFTPFormData } from "../../types/forms";
 
 interface ProfileManagerProps {
   darkMode: boolean;
-  onProfileSelect: (profile: FormData) => void;
+  profiles: { [key: string]: Profile };
+  onProfileSelect: (profile: SFTPFormData) => void;
   onDeleteProfile: (profileName: string) => void;
   isOpen: boolean;
-  profiles: { [key: string]: FormData };
 }
 
 export const ProfileManager: React.FC<ProfileManagerProps> = ({
   darkMode,
+  profiles,
   onProfileSelect,
   onDeleteProfile,
   isOpen,
-  profiles
 }) => {
-  const [selectedProfile, setSelectedProfile] = useState<string | null>(null);
-
-  const handleProfileSelect = (profileName: string) => {
-    setSelectedProfile(profileName);
-    onProfileSelect(profiles[profileName]);
-  };
-
-  return isOpen ? (
+  return (
     <div
-      className={`w-64 h-full fixed left-0 top-0 ${
-        darkMode ? 'bg-gray-800 text-white' : 'bg-white text-gray-800'
-      } shadow-lg border-r ${
-        darkMode ? 'border-gray-700' : 'border-gray-200'
-      } overflow-y-auto`}
+      className={`fixed top-0 left-0 h-full w-64 transform ${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      } transition-transform duration-300 ease-in-out ${
+        darkMode ? "bg-gray-900" : "bg-gray-100"
+      }`}
     >
       <div className="p-4">
-        <h2 className="text-lg font-semibold mb-4 flex items-center">
-          <FaFolder className="mr-2" />
-          Profiles
+        <h2
+          className={`text-lg font-semibold mb-4 ${
+            darkMode ? "text-white" : "text-gray-900"
+          }`}
+        >
+          Saved Profiles
         </h2>
+
         <div className="space-y-2">
-          {Object.keys(profiles).length === 0 ? (
-            <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-500'}`}>
-              No profiles saved yet
-            </p>
-          ) : (
-            Object.entries(profiles).map(([name, _]) => (
+          {Object.entries(profiles).map(([name, profile]) => (
+            <div
+              key={name}
+              className={`p-2 rounded cursor-pointer ${
+                darkMode ? "hover:bg-gray-700" : "hover:bg-gray-200"
+              }`}
+              onClick={() => onProfileSelect(profile)}
+            >
               <div
-                key={name}
-                className={`group flex items-center justify-between p-2 rounded cursor-pointer ${
-                  selectedProfile === name
-                    ? darkMode
-                      ? 'bg-blue-600'
-                      : 'bg-blue-100'
-                    : darkMode
-                    ? 'hover:bg-gray-700'
-                    : 'hover:bg-gray-100'
+                className={`text-sm ${
+                  darkMode ? "text-gray-200" : "text-gray-700"
                 }`}
-                onClick={() => handleProfileSelect(name)}
               >
-                <span className="truncate flex-1">{name}</span>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onDeleteProfile(name);
-                    if (selectedProfile === name) {
-                      setSelectedProfile(null);
-                    }
-                  }}
-                  className={`opacity-0 group-hover:opacity-100 p-1 rounded ${
-                    darkMode ? 'hover:bg-gray-600' : 'hover:bg-gray-200'
-                  }`}
-                >
-                  <FaTrash className="w-4 h-4 text-red-500" />
-                </button>
+                {name}
               </div>
-            ))
-          )}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onDeleteProfile(name);
+                }}
+                className={`text-xs ${
+                  darkMode
+                    ? "text-red-400 hover:text-red-300"
+                    : "text-red-600 hover:text-red-500"
+                }`}
+              >
+                Delete
+              </button>
+            </div>
+          ))}
         </div>
       </div>
     </div>
-  ) : null;
+  );
 };

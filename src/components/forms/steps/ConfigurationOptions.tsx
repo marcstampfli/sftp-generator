@@ -1,7 +1,7 @@
-import React from 'react';
-import { StepProps } from '../../../types/forms';
-import { Input } from '../../common/Input';
-import { Toggle } from '../../common/Toggle';
+import React from "react";
+import { StepProps } from "../../../types/forms";
+import { Input } from "../../common/Input";
+import { Toggle } from "../../common/Toggle";
 
 export const ConfigurationOptions: React.FC<StepProps> = ({
   formData,
@@ -31,7 +31,9 @@ export const ConfigurationOptions: React.FC<StepProps> = ({
 
   return (
     <div className="space-y-6">
-      <h2 className={`text-lg font-semibold ${darkMode ? 'text-white' : 'text-gray-900'}`}>
+      <h2
+        className={`text-lg font-semibold ${darkMode ? "text-white" : "text-gray-900"}`}
+      >
         Configuration Options
       </h2>
 
@@ -40,10 +42,10 @@ export const ConfigurationOptions: React.FC<StepProps> = ({
           <Input
             label="Remote Path"
             type="text"
-            value={formData.remotePath || '/'}
+            value={formData.remotePath || "/"}
             onChange={(e) => onChange({ remotePath: e.target.value })}
             tooltip="Remote directory path on the SFTP server (default: /)"
-            className={darkMode ? 'bg-gray-700 text-white' : ''}
+            className={darkMode ? "bg-gray-700 text-white" : ""}
             darkMode={darkMode}
           />
           {errors?.remotePath && (
@@ -84,48 +86,64 @@ export const ConfigurationOptions: React.FC<StepProps> = ({
         />
 
         {formData.showAdvancedOptions && (
-          <div className={`mt-4 p-4 rounded-lg space-y-4 ${darkMode ? 'bg-gray-800' : 'bg-gray-50'}`}>
-            <h3 className={`text-sm font-medium mb-2 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+          <div
+            className={`mt-4 p-4 rounded-lg space-y-4 ${darkMode ? "bg-gray-800" : "bg-gray-50"}`}
+          >
+            <h3
+              className={`text-sm font-medium mb-2 ${darkMode ? "text-gray-200" : "text-gray-700"}`}
+            >
               Advanced Options
             </h3>
-            
+
             <Input
               label="Connection Timeout (ms)"
               type="number"
-              value={formData.connectionTimeout?.toString() || '10000'}
-              onChange={(e) => onChange({ connectionTimeout: parseInt(e.target.value) || 10000 })}
+              value={formData.connectionTimeout?.toString() || "10000"}
+              onChange={(e) =>
+                onChange({
+                  connectionTimeout: parseInt(e.target.value) || 10000,
+                })
+              }
               tooltip="How long to wait for initial connection before giving up (default: 10 seconds)"
-              className={darkMode ? 'bg-gray-700 text-white' : ''}
+              className={darkMode ? "bg-gray-700 text-white" : ""}
               darkMode={darkMode}
             />
 
             <Input
               label="Keep Alive Interval (ms)"
               type="number"
-              value={formData.keepAliveInterval?.toString() || '30000'}
-              onChange={(e) => onChange({ keepAliveInterval: parseInt(e.target.value) || 30000 })}
+              value={formData.keepAliveInterval?.toString() || "30000"}
+              onChange={(e) =>
+                onChange({
+                  keepAliveInterval: parseInt(e.target.value) || 30000,
+                })
+              }
               tooltip="Send periodic signals to prevent connection timeout (default: 30 seconds)"
-              className={darkMode ? 'bg-gray-700 text-white' : ''}
+              className={darkMode ? "bg-gray-700 text-white" : ""}
               darkMode={darkMode}
             />
 
             <Input
               label="Max Retries"
               type="number"
-              value={formData.maxRetries?.toString() || '3'}
-              onChange={(e) => onChange({ maxRetries: parseInt(e.target.value) || 3 })}
+              value={formData.maxRetries?.toString() || "3"}
+              onChange={(e) =>
+                onChange({ maxRetries: parseInt(e.target.value) || 3 })
+              }
               tooltip="Number of times to retry connecting if connection fails (default: 3 attempts)"
-              className={darkMode ? 'bg-gray-700 text-white' : ''}
+              className={darkMode ? "bg-gray-700 text-white" : ""}
               darkMode={darkMode}
             />
 
             <Input
               label="Retry Delay (ms)"
               type="number"
-              value={formData.retryDelay?.toString() || '5000'}
-              onChange={(e) => onChange({ retryDelay: parseInt(e.target.value) || 5000 })}
+              value={formData.retryDelay?.toString() || "5000"}
+              onChange={(e) =>
+                onChange({ retryDelay: parseInt(e.target.value) || 5000 })
+              }
               tooltip="Time to wait between connection retry attempts (default: 5 seconds)"
-              className={darkMode ? 'bg-gray-700 text-white' : ''}
+              className={darkMode ? "bg-gray-700 text-white" : ""}
               darkMode={darkMode}
             />
 

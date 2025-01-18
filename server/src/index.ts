@@ -1,8 +1,8 @@
-import express from 'express';
-import cors from 'cors';
-import { Client } from 'ssh2';
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import express from "express";
+import cors from "cors";
+import { Client } from "ssh2";
+import { fileURLToPath } from "url";
+import { dirname } from "path";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -35,7 +35,7 @@ interface TestConnectionRequest {
   compress?: boolean;
 }
 
-app.post('/api/test-connection', async (req, res) => {
+app.post("/api/test-connection", async (req, res) => {
   const config: TestConnectionRequest = req.body;
   const client = new Client();
 
@@ -47,34 +47,36 @@ app.post('/api/test-connection', async (req, res) => {
     try {
       await new Promise<void>((resolve, reject) => {
         if (config.debugLogging) {
-          console.log('Attempting SFTP connection with config:', {
+          console.log("Attempting SFTP connection with config:", {
             ...config,
-            password: config.password ? '***' : undefined,
-            privateKey: config.privateKey ? '***' : undefined,
-            passphrase: config.passphrase ? '***' : undefined,
+            password: config.password ? "***" : undefined,
+            privateKey: config.privateKey ? "***" : undefined,
+            passphrase: config.passphrase ? "***" : undefined,
           });
         }
 
         client
-          .on('ready', () => {
+          .on("ready", () => {
             client.sftp((err, sftp) => {
               if (err) {
                 client.end();
-                reject(new Error('Failed to initialize SFTP session'));
+                reject(new Error("Failed to initialize SFTP session"));
                 return;
               }
 
               sftp.readdir(config.remotePath, (err) => {
                 client.end();
                 if (err) {
-                  reject(new Error(`Remote path access failed: ${err.message}`));
+                  reject(
+                    new Error(`Remote path access failed: ${err.message}`),
+                  );
                 } else {
                   resolve();
                 }
               });
             });
           })
-          .on('error', (err) => {
+          .on("error", (err) => {
             reject(new Error(`Connection failed: ${err.message}`));
           })
           .connect({
@@ -97,15 +99,17 @@ app.post('/api/test-connection', async (req, res) => {
 
       res.json({
         success: true,
-        message: 'Connection successful! Remote path is accessible.',
+        message: "Connection successful! Remote path is accessible.",
       });
     } catch (error) {
       if (retryCount < maxRetries) {
         retryCount++;
         if (config.debugLogging) {
-          console.log(`Connection attempt ${retryCount} failed, retrying in ${retryDelay}ms...`);
+          console.log(
+            `Connection attempt ${retryCount} failed, retrying in ${retryDelay}ms...`,
+          );
         }
-        await new Promise(resolve => setTimeout(resolve, retryDelay));
+        await new Promise((resolve) => setTimeout(resolve, retryDelay));
         return attemptConnection();
       }
 

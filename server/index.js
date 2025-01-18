@@ -1,8 +1,8 @@
-const express = require('express');
-const cors = require('cors');
-const { Client } = require('ssh2');
-const fs = require('fs');
-const path = require('path');
+const express = require("express");
+const cors = require("cors");
+const { Client } = require("ssh2");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const port = 3001;
@@ -11,14 +11,14 @@ const port = 3001;
 app.use(cors());
 app.use(express.json());
 
-app.post('/api/test-connection', async (req, res) => {
+app.post("/api/test-connection", async (req, res) => {
   const { host, port, username, password, privateKey, passphrase } = req.body;
 
   // Validate required fields
   if (!host || !port || !username) {
     return res.status(400).json({
       success: false,
-      error: 'Missing required fields: host, port, or username',
+      error: "Missing required fields: host, port, or username",
     });
   }
 
@@ -45,10 +45,10 @@ app.post('/api/test-connection', async (req, res) => {
     // Wrap connection attempt in a promise
     await new Promise((resolve, reject) => {
       conn
-        .on('ready', () => {
+        .on("ready", () => {
           resolve();
         })
-        .on('error', (err) => {
+        .on("error", (err) => {
           reject(err);
         })
         .connect(config);
@@ -60,7 +60,7 @@ app.post('/api/test-connection', async (req, res) => {
     // Connection failed
     res.status(400).json({
       success: false,
-      error: error.message || 'Connection failed',
+      error: error.message || "Connection failed",
     });
   } finally {
     // Always close the connection

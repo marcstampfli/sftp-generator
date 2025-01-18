@@ -1,34 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import { ConnectionDetails, AuthenticationDetails, ConfigurationOptions } from './steps';
-import { FormData, FormErrors, StepProps } from '../../types/forms';
-import { ProgressBar } from '../common/ProgressBar';
-import { GeneratedJSON } from '../output/GeneratedJSON';
-import { Header } from '../common/Header';
-import { testConnection } from '../../services/SFTPService';
-import { ProfileManager } from '../profile/ProfileManager';
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import {
+  ConnectionDetails,
+  AuthenticationDetails,
+  ConfigurationOptions,
+} from "./steps";
+import {
+  SFTPFormData,
+  FormErrors,
+  StepProps,
+  Profile,
+} from "../../types/forms";
+import { ProgressBar } from "../common/ProgressBar";
+import { GeneratedJSON } from "../output/GeneratedJSON";
+import { Header } from "../common/Header";
+import { testConnection } from "../../services/SFTPService";
+import { ProfileManager } from "../profile/ProfileManager";
 
 interface SFTPFormProps {
   darkMode: boolean;
   toggleDarkMode: () => void;
 }
 
-interface Step {
+interface Step<T = SFTPFormData> {
   title: string;
-  component: React.FC<StepProps>;
+  component: React.FC<StepProps<T>>;
 }
 
-export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) => {
+export const SFTPForm: React.FC<SFTPFormProps> = ({
+  darkMode,
+  toggleDarkMode,
+}) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [formData, setFormData] = useState<FormData>({
-    name: '',
-    host: '',
+  const [formData, setFormData] = useState<SFTPFormData>({
+    name: "",
+    host: "",
     port: 22,
-    protocol: 'sftp',
-    username: '',
-    authType: 'password',
-    remotePath: '/',
+    protocol: "sftp",
+    username: "",
+    authType: "password",
+    remotePath: "/",
     uploadOnSave: false,
     useTempFile: false,
     openSsh: false,
@@ -41,71 +53,79 @@ export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) 
     compress: false,
   });
   const [showProfiles, setShowProfiles] = useState(false);
-  const [profiles, setProfiles] = useState<{ [key: string]: FormData }>({});
+  const [profiles, setProfiles] = useState<{ [key: string]: Profile }>({});
 
   // Load profiles on mount
   useEffect(() => {
-    const savedProfiles = localStorage.getItem('sftpProfiles');
+    const savedProfiles = localStorage.getItem("sftpProfiles");
     if (savedProfiles) {
       try {
         const parsedProfiles = JSON.parse(savedProfiles);
         setProfiles(parsedProfiles);
       } catch (error) {
-        console.error('Error parsing profiles:', error);
-        toast.error('Error loading profiles');
+        console.error("Error parsing profiles:", error);
+        toast.error("Error loading profiles");
       }
     }
   }, []);
 
   const steps: Step[] = [
     {
-      title: 'Connection Details',
+      title: "Connection Details",
       component: ConnectionDetails,
     },
     {
-      title: 'Authentication',
+      title: "Authentication",
       component: AuthenticationDetails,
     },
     {
-      title: 'Configuration',
+      title: "Configuration",
       component: ConfigurationOptions,
     },
     {
-      title: 'Review & Generate',
+      title: "Review & Generate",
       component: GeneratedJSON,
     },
   ];
 
-  const handleProfileSelect = (profile: FormData) => {
+  const handleProfileSelect = (profile: SFTPFormData) => {
     setFormData(profile);
     setCurrentStep(1);
-    toast.success('Profile loaded successfully!');
+    toast.success("Profile loaded successfully!");
   };
 
-  const validateStep = async (step: number, formData: FormData): Promise<FormErrors> => {
+  const validateStep = async (
+    step: number,
+    formData: SFTPFormData,
+  ): Promise<FormErrors> => {
     const errors: FormErrors = {};
 
     switch (step) {
       case 1: // Connection Details
-        if (!formData.name?.trim()) errors.name = 'Name is required';
-        if (!formData.host?.trim()) errors.host = 'Host is required';
+        if (!formData.name?.trim()) errors.name = "Name is required";
+        if (!formData.host?.trim()) errors.host = "Host is required";
         if (!formData.port || formData.port < 1 || formData.port > 65535) {
-          errors.port = 'Port must be between 1 and 65535';
+          errors.port = "Port must be between 1 and 65535";
         }
         break;
 
       case 2: // Authentication
-        if (!formData.username?.trim()) errors.username = 'Username is required';
-        if (formData.authType === 'password' && !formData.password?.trim()) {
-          errors.password = 'Password is required';
+        if (!formData.username?.trim())
+          errors.username = "Username is required";
+        if (formData.authType === "password" && !formData.password?.trim()) {
+          errors.password = "Password is required";
         }
-        if (formData.authType === 'privateKey' && !formData.privateKeyPath?.trim()) {
-          errors.privateKeyPath = 'Private key is required';
+        if (
+          formData.authType === "privateKey" &&
+          !formData.privateKeyPath?.trim()
+        ) {
+          errors.privateKeyPath = "Private key is required";
         }
         break;
 
       case 3: // Configuration
-        if (!formData.remotePath?.trim()) errors.remotePath = 'Remote path is required';
+        if (!formData.remotePath?.trim())
+          errors.remotePath = "Remote path is required";
         break;
     }
 
@@ -136,27 +156,36 @@ export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) 
     try {
       const result = await testConnection(formData);
       if (result.success) {
-        toast.success(result.message || 'Connection successful!');
+        toast.success(result.message || "Connection successful!");
       } else {
         toast.error(`Connection failed: ${result.error}`);
       }
     } catch (error) {
-      toast.error(`Error testing connection: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      toast.error(
+        `Error testing connection: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
     }
   };
 
   const handleSaveProfile = () => {
     // Add or update the profile
+    const profile: Profile = {
+      ...formData,
+      id: formData.name,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
     const updatedProfiles = {
       ...profiles,
-      [formData.name]: formData
+      [formData.name]: profile,
     };
 
     // Update state and localStorage
     setProfiles(updatedProfiles);
-    localStorage.setItem('sftpProfiles', JSON.stringify(updatedProfiles));
-    
-    toast.success('Profile saved successfully!');
+    localStorage.setItem("sftpProfiles", JSON.stringify(updatedProfiles));
+
+    toast.success("Profile saved successfully!");
     // Open the profiles sidebar to show the saved profile
     setShowProfiles(true);
   };
@@ -165,19 +194,21 @@ export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) 
     const updatedProfiles = { ...profiles };
     delete updatedProfiles[profileName];
     setProfiles(updatedProfiles);
-    localStorage.setItem('sftpProfiles', JSON.stringify(updatedProfiles));
-    toast.success('Profile deleted successfully!');
+    localStorage.setItem("sftpProfiles", JSON.stringify(updatedProfiles));
+    toast.success("Profile deleted successfully!");
   };
 
   return (
-    <div className={`container mx-auto px-4 py-8 ${showProfiles ? 'ml-64' : ''} transition-all duration-300`}>
+    <div
+      className={`container mx-auto px-4 py-8 ${showProfiles ? "ml-64" : ""} transition-all duration-300`}
+    >
       <Header
         darkMode={darkMode}
         toggleDarkMode={toggleDarkMode}
         toggleProfiles={() => setShowProfiles(!showProfiles)}
         showProfiles={showProfiles}
       />
-      
+
       <ProfileManager
         darkMode={darkMode}
         onProfileSelect={handleProfileSelect}
@@ -186,7 +217,9 @@ export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) 
         profiles={profiles}
       />
 
-      <div className={`rounded-lg shadow-lg p-6 ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
+      <div
+        className={`rounded-lg shadow-lg p-6 ${darkMode ? "bg-gray-800" : "bg-white"}`}
+      >
         <ProgressBar
           currentStep={currentStep}
           totalSteps={steps.length}
@@ -197,7 +230,7 @@ export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) 
         <div className="mt-8">
           {React.createElement(steps[currentStep - 1].component, {
             formData,
-            onChange: (changes: Partial<FormData>) => {
+            onChange: (changes: Partial<SFTPFormData>) => {
               setFormData((prev) => ({ ...prev, ...changes }));
               setErrors({});
             },
@@ -215,8 +248,10 @@ export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) 
             <button
               onClick={handleBack}
               className={`px-4 py-2 rounded ${
-                darkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-gray-200 hover:bg-gray-300'
-              } text-${darkMode ? 'white' : 'gray-800'} transition-colors duration-200`}
+                darkMode
+                  ? "bg-gray-700 hover:bg-gray-600"
+                  : "bg-gray-200 hover:bg-gray-300"
+              } text-${darkMode ? "white" : "gray-800"} transition-colors duration-200`}
             >
               Back
             </button>
@@ -227,7 +262,9 @@ export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) 
                 <button
                   onClick={handleSaveProfile}
                   className={`px-4 py-2 rounded ${
-                    darkMode ? 'bg-green-600 hover:bg-green-700' : 'bg-green-500 hover:bg-green-600'
+                    darkMode
+                      ? "bg-green-600 hover:bg-green-700"
+                      : "bg-green-500 hover:bg-green-600"
                   } text-white transition-colors duration-200`}
                 >
                   Save Profile
@@ -235,7 +272,9 @@ export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) 
                 <button
                   onClick={handleTestConnection}
                   className={`px-4 py-2 rounded ${
-                    darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'
+                    darkMode
+                      ? "bg-blue-600 hover:bg-blue-700"
+                      : "bg-blue-500 hover:bg-blue-600"
                   } text-white transition-colors duration-200`}
                 >
                   Test Connection
@@ -246,10 +285,12 @@ export const SFTPForm: React.FC<SFTPFormProps> = ({ darkMode, toggleDarkMode }) 
               <button
                 onClick={handleNext}
                 className={`px-4 py-2 rounded ${
-                  darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-blue-500 hover:bg-blue-600'
+                  darkMode
+                    ? "bg-blue-600 hover:bg-blue-700"
+                    : "bg-blue-500 hover:bg-blue-600"
                 } text-white transition-colors duration-200`}
               >
-                {currentStep === steps.length - 1 ? 'Generate' : 'Next'}
+                {currentStep === steps.length - 1 ? "Generate" : "Next"}
               </button>
             )}
           </div>

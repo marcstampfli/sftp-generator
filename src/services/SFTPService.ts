@@ -1,4 +1,4 @@
-import { FormData } from '../types/forms';
+import { SFTPFormData } from "../types/forms";
 
 interface ConnectionTestResult {
   success: boolean;
@@ -6,27 +6,29 @@ interface ConnectionTestResult {
   message?: string;
 }
 
-export const testConnection = async (config: FormData): Promise<ConnectionTestResult> => {
+export const testConnection = async (
+  config: SFTPFormData,
+): Promise<ConnectionTestResult> => {
   try {
     // Validate required fields
     if (!config.host || !config.port || !config.username) {
       return {
         success: false,
-        error: 'Missing required fields: host, port, or username',
+        error: "Missing required fields: host, port, or username",
       };
     }
 
-    const response = await fetch('http://localhost:3001/api/test-connection', {
-      method: 'POST',
+    const response = await fetch("http://localhost:3001/api/test-connection", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         host: config.host,
         port: config.port,
         username: config.username,
-        remotePath: config.remotePath || '/',
-        ...(config.authType === 'privateKey'
+        remotePath: config.remotePath || "/",
+        ...(config.authType === "privateKey"
           ? {
               // For key auth, send the key file contents
               privateKey: config.privateKeyPath,
@@ -54,10 +56,10 @@ export const testConnection = async (config: FormData): Promise<ConnectionTestRe
       error: data.error,
     };
   } catch (error) {
-    console.error('Connection test error:', error);
+    console.error("Connection test error:", error);
     return {
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown error occurred',
+      error: error instanceof Error ? error.message : "Unknown error occurred",
     };
   }
 };

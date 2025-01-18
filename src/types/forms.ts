@@ -1,6 +1,6 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction } from "react";
 
-export interface FormData {
+export interface SFTPFormData {
   // UI State (not included in final config)
   showAdvancedOptions?: boolean;
 
@@ -8,15 +8,15 @@ export interface FormData {
   name: string;
   host: string;
   port: number;
-  protocol?: 'sftp' | 'ftp';
+  protocol?: "sftp" | "ftp";
   secure?: boolean;
-  
+
   // Authentication
   username: string;
   password?: string;
   privateKeyPath?: string;
   passphrase?: string;
-  authType: 'password' | 'privateKey';
+  authType: "password" | "privateKey";
 
   // Path and Sync Settings
   remotePath: string;
@@ -41,17 +41,19 @@ export interface FormData {
   compress?: boolean;
 
   // Hop Configuration
-  hop?: {
-    host: string;
-    username: string;
-    privateKeyPath?: string;
-    password?: string;
-  } | Array<{
-    host: string;
-    username: string;
-    privateKeyPath?: string;
-    password?: string;
-  }>;
+  hop?:
+    | {
+        host: string;
+        username: string;
+        privateKeyPath?: string;
+        password?: string;
+      }
+    | Array<{
+        host: string;
+        username: string;
+        privateKeyPath?: string;
+        password?: string;
+      }>;
 }
 
 export interface FormErrors {
@@ -65,17 +67,17 @@ export interface FormErrors {
   [key: string]: string | undefined;
 }
 
-export interface Profile extends FormData {
+export interface Profile extends SFTPFormData {
   id: string;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface StepProps {
-  formData: FormData;
-  onChange: (update: Partial<FormData>) => void;
+export interface StepProps<T = SFTPFormData> {
+  formData: T;
+  onChange: (update: Partial<T>) => void;
   errors?: FormErrors;
-  darkMode?: boolean;
+  darkMode: boolean;
   onNext?: () => void;
   onBack?: () => void;
   currentStep?: number;
@@ -83,7 +85,7 @@ export interface StepProps {
 }
 
 export interface ProfileFormProps extends StepProps {
-  onSave: (profile: FormData) => void;
+  onSave: (profile: SFTPFormData) => void;
   onCancel: () => void;
 }
 

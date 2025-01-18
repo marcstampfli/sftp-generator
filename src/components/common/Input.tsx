@@ -1,5 +1,5 @@
-import React from 'react';
-import { Tooltip } from 'react-tooltip';
+import React from "react";
+import { Tooltip } from "react-tooltip";
 
 interface InputProps {
   label: string;
@@ -22,11 +22,13 @@ export const Input: React.FC<InputProps> = ({
   className,
   darkMode = false,
 }) => {
-  const tooltipId = `tooltip-${label.toLowerCase().replace(/\s+/g, '-')}`;
-  
+  const tooltipId = `tooltip-${label.toLowerCase().replace(/\s+/g, "-")}`;
+
   return (
     <div className="relative">
-      <label className={`block text-sm font-medium mb-1 ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>
+      <label
+        className={`block text-sm font-medium mb-1 ${darkMode ? "text-gray-200" : "text-gray-700"}`}
+      >
         {label}
         {tooltip && (
           <span
@@ -48,7 +50,9 @@ export const Input: React.FC<InputProps> = ({
       {tooltip && (
         <Tooltip
           id={tooltipId}
-          className={darkMode ? '!bg-gray-800 !text-white' : '!bg-white !text-gray-900'}
+          className={
+            darkMode ? "!bg-gray-800 !text-white" : "!bg-white !text-gray-900"
+          }
           style={{ zIndex: 1000 }}
         />
       )}
